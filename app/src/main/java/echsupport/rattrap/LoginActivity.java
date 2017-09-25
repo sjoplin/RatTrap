@@ -181,13 +181,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
@@ -196,6 +189,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
+            cancel = true;
+        }
+
+        // Check for a valid password, if the user entered one.
+        if (!cancel && !TextUtils.isEmpty(password) && !isPasswordValid(password, email)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
             cancel = true;
         }
 
@@ -209,6 +209,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+            accMan.setCurAcc(accMan.getAccount(email));
+            Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+            startActivity(intent);
         }
     }
 
@@ -241,14 +244,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    /**
+     * Checks if email is in account manager hashmap.
+     */
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+        return (accMan.getAccount(email) != null);
     }
 
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+    private boolean isPasswordValid(String password, String email) {
+        int hashCheck = 0;
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            hashCheck += Math.pow((int) c, i + 1);
+        }
+        return (accMan.getAccount(email)).getPassword() == hashCheck;
     }
 
     /**
