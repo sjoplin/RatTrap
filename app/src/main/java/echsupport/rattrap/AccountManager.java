@@ -1,4 +1,6 @@
 package echsupport.rattrap;
+import android.content.Intent;
+
 import java.util.HashMap;
 
 /**
@@ -69,6 +71,10 @@ class AccountManager {
      */
     public void setCurAcc(Account acc) {
         this.curAcc = acc;
+    }
+
+    public void logout() {
+        this.curAcc = null;
     }
 
     /**
