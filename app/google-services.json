@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "276739012026",
+    "firebase_url": "https://rattrap-1dd50.firebaseio.com",
+    "project_id": "rattrap-1dd50",
+    "storage_bucket": "rattrap-1dd50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276739012026:android:1adeef0469f94348",
+        "android_client_info": {
+          "package_name": "echsupport.rattrap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276739012026-aaaba3od4m3ioh5111ov2itq9jaaedf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcXt7STUCLtF2Y1VBAHs-04avHYtXj34A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
