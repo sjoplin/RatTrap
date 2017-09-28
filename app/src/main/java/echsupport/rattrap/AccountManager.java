@@ -34,11 +34,13 @@ class AccountManager {
      * @return whether or not the new account
      */
     public boolean addAccount(String name, String email, String password) {
-        if (!accountHashMap.containsKey(email)) {
-            Account newAccount = new Account(name, email, password);
-            accountHashMap.put(email, newAccount);
+        Account newAccount = new Account(name, email, password);
+        if (!accountHashMap.containsKey(newAccount.getEmail())) {
+            accountHashMap.put(newAccount.getEmail(), newAccount);
+            newAccount = null;
             return true;
         } else {
+            newAccount = null;
             return false;
         }
     }

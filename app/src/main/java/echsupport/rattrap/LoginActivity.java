@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -174,9 +173,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+
 
         // Reset errors.
         mEmailView.setError(null);
@@ -201,8 +198,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         // Check for a valid password, if the user entered one.
-        if (!cancel && !TextUtils.isEmpty(password) && !isPasswordValid(password, email)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+        if (!cancel && !isPasswordValid(password, email)) {
+            mPasswordView.setError("I'm sorry that password is wrong!");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -215,8 +212,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
             accMan.setCurAcc(accMan.getAccount(email));
             Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
             startActivity(intent);
@@ -230,8 +225,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void regNewUser() {
         String name = mRegNameView.getText().toString();
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = mRegEmailView.getText().toString();
+        String password = mRegPassView.getText().toString();
         if (accMan.addAccount(name, email, password)) {
             accMan.setCurAcc(accMan.getAccount(email));
             Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
@@ -245,7 +240,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             builder.setTitle("Duplicate Email");
             builder.setMessage("Another account already has this email. Please use another");
-            builder.show();
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
 
         }
 
@@ -253,9 +249,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     /**
+     * makes sure user password is not bad and insecure
+     * @param password the users attempted password
+     * @return if it is a bad password
+     */
+    private boolean isRegPasswordValid(String password) {
+        return password != password;
+    }
+
+    /**
      * Checks if email is in account manager hashmap.
      */
     private boolean isEmailValid(String email) {
+        System.out.print(email);
         return (accMan.getAccount(email) != null);
     }
 
@@ -362,58 +368,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
 
     /**
      * this method cancels the login activity
