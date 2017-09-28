@@ -117,6 +117,12 @@
                 android:text="REGISTER"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/cancel_Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CANCEL" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

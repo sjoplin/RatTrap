@@ -112,6 +112,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mCancelButton = (Button) findViewById(R.id.cancel_Login);
+        mCancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCancelled();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -406,5 +414,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
-}
 
+    /**
+     * this method cancels the login activity
+     */
+    private void onCancelled() {
+        mEmailView = null;
+        mPasswordView = null;
+        mRegEmailView = null;
+        mRegNameView = null;
+        mRegPassView = null;
+        mProgressView = null;
+        mLoginFormView = null;
+        Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
+        startActivity(intent);
+    }
+}
