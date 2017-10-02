@@ -37,6 +37,8 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
+import android.widget.Spinner;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mRegPassView;
     private View mProgressView;
     private View mLoginFormView;
+    private Spinner spinner;
 
     //The account manager. Can only ever exist once.
     private AccountManager accMan = AccountManager.getInstance();
@@ -94,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mRegEmailView = (AutoCompleteTextView) findViewById(R.id.emailReg);
         mRegNameView = (AutoCompleteTextView) findViewById(R.id.nameReg);
         mRegPassView = (EditText) findViewById(R.id.passReg);
+        spinner = (Spinner) findViewById(R.id.user_or_admin);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -121,6 +125,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        /*
+          Set up the adapter to display the allowable majors in the spinner
+        */
+        ArrayList<String> spinnerArray = new ArrayList<String>();
+        spinnerArray.add("User");
+        spinnerArray.add("Admin");
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, spinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     private void populateAutoComplete() {
