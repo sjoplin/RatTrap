@@ -45,6 +45,25 @@ class AccountManager {
         }
     }
 
+    /**
+     * This will add an account to the hashmap only if the email is unique
+     * @param name the name of the new account
+     * @param email the email of the new account
+     * @param password the password of the new account
+     * @param regStat the registration status of the new account
+     * @return whether or not the new account
+     */
+    public boolean addAccount(String name, String email, String password, RegistrationStatus regStat) {
+        Account newAccount = new Account(name, email, password, regStat);
+        if (!accountHashMap.containsKey(newAccount.getEmail())) {
+            accountHashMap.put(newAccount.getEmail(), newAccount);
+            newAccount = null;
+            return true;
+        } else {
+            newAccount = null;
+            return false;
+        }
+    }
 
     /**
      * This ensures that there will only ever be one instance of AccountManager
@@ -75,6 +94,9 @@ class AccountManager {
         this.curAcc = acc;
     }
 
+    /**
+     * This method ensures that the user is no longer in the active system when they log out
+     */
     public void logout() {
         this.curAcc = null;
     }

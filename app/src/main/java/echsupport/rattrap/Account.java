@@ -19,6 +19,9 @@ public class Account {
     //hash of the password for security concerns
     private int passHash;
 
+    //registration status of the user
+    private RegistrationStatus regStat;
+
 
     /**
      * Constructor for an Account. will generate a password hash
@@ -28,6 +31,17 @@ public class Account {
      * @param password password for the account.
      */
     public Account (String name, String email, String password) {
+        this(name, email, password, RegistrationStatus.USER);
+    }
+
+    /**
+     * Constructor for an Account. Old one kept for backwards compatability.
+     * @param name name for the new account
+     * @param email email for the account
+     * @param password password for the account
+     * @param regStat the registration status of the new Account
+     */
+    public Account (String name, String email, String password, RegistrationStatus regStat) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -35,6 +49,7 @@ public class Account {
             char c = password.charAt(i);
             passHash += Math.pow((int) c, i + 1);
         }
+        this.regStat = regStat;
     }
 
 

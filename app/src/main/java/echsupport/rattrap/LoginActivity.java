@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mRegNameView = (AutoCompleteTextView) findViewById(R.id.nameReg);
         mRegPassView = (EditText) findViewById(R.id.passReg);
         spinner = (Spinner) findViewById(R.id.user_or_admin);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, RegistrationStatus.values());
+        spinner.setAdapter(adapter1);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -241,7 +243,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String name = mRegNameView.getText().toString();
         String email = mRegEmailView.getText().toString();
         String password = mRegPassView.getText().toString();
-        if (accMan.addAccount(name, email, password)) {
+        RegistrationStatus newRegStat = ((RegistrationStatus) spinner.getSelectedItem());
+        if (accMan.addAccount(name, email, password, newRegStat)) {
             accMan.setCurAcc(accMan.getAccount(email));
             Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
             startActivity(intent);
