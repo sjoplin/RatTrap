@@ -108,4 +108,8 @@ public class Account {
             passHash += Math.pow((int) c, i + 1);
         }
     }
+
+    public RegistrationStatus getRegStat() {
+        return regStat;
+    }
 }

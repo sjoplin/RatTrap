@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -99,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mRegPassView = (EditText) findViewById(R.id.passReg);
         spinner = (Spinner) findViewById(R.id.user_or_admin);
         ArrayAdapter<String> adapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, RegistrationStatus.values());
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
@@ -128,15 +130,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        /*
-          Set up the adapter to display the allowable majors in the spinner
-        */
-        ArrayList<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("User");
-        spinnerArray.add("Admin");
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+
     }
 
     private void populateAutoComplete() {
@@ -243,6 +237,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String name = mRegNameView.getText().toString();
         String email = mRegEmailView.getText().toString();
         String password = mRegPassView.getText().toString();
+
         RegistrationStatus newRegStat = ((RegistrationStatus) spinner.getSelectedItem());
         if (accMan.addAccount(name, email, password, newRegStat)) {
             accMan.setCurAcc(accMan.getAccount(email));

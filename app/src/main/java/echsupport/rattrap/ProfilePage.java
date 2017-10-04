@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ProfilePage extends AppCompatActivity {
     private AccountManager accMan = AccountManager.getInstance();
@@ -37,6 +38,10 @@ public class ProfilePage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView nameText = (TextView) findViewById(R.id.NameText);
+
+        nameText.setHint("" + accMan.getCurAcc().getRegStat() + ":   "  + accMan.getCurAcc().getName());
     }
 
 }

@@ -5,12 +5,18 @@ package echsupport.rattrap;
  */
 
 enum RegistrationStatus {
-    USER(false), ADMIN(true);
+    USER(false, "User"), ADMIN(true, "Admin");
 
-    boolean priviledge;
+    private boolean priviledge;
+    private String value;
 
-    RegistrationStatus(boolean priviledge) {
+    RegistrationStatus(boolean priviledge, String value) {
+        this.value = value;
         this.priviledge = priviledge;
+    }
+
+    public String toString() {
+        return value;
     }
 
 }
