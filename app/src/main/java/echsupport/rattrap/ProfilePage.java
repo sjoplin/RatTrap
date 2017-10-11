@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +42,10 @@ public class ProfilePage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        TextView nameText = (TextView) findViewById(R.id.NameText);
+
+        nameText.setHint("" + accMan.getCurAcc().getRegStat() + ":   "  + accMan.getCurAcc().getName());
     }
 
 }
