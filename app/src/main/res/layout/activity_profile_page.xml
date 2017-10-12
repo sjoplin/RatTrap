@@ -2,10 +2,20 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/name"
+    <Button
+        android:id="@+id/logoutbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_row="0"
+        android:text="Logout" />
+
+    <TextView
+        android:id="@+id/NameText"
+        android:layout_width="119dp"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_row="1"
         android:text="Name:"
         android:textSize="36sp" />
 </GridLayout>
