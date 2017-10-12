@@ -35,6 +35,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -337,6 +344,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         DatabaseReference userData = database.getReference().child("user");
                         DatabaseReference newUser = userData.child(email.replace('.','-'));
                         newUser.child("name").setValue(mRegNameView.getText().toString());
+                        newUser.child("admin").setValue(spinner.getSelectedItem().toString());
                         Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
                         startActivity(intent);
 
