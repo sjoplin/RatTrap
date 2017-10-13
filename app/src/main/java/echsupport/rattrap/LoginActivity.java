@@ -291,7 +291,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("LoginActivity", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                                Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -345,7 +345,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         DatabaseReference newUser = userData.child(email.replace('.','-'));
                         newUser.child("name").setValue(mRegNameView.getText().toString());
                         newUser.child("admin").setValue(spinner.getSelectedItem().toString());
-                        Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                        Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
                         startActivity(intent);
 
                         // If sign in fails, display a message to the user. If sign in succeeds
