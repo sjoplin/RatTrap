@@ -66,6 +66,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+    private RatDataManager ratDataManager = RatDataManager.getInstance();
+
     /**
      * this is the the set up to listen for auth state
      */
