@@ -44,53 +44,30 @@ public class RatDataViewer extends AppCompatActivity {
     private TextView zipText;
     private TextView latitudeText;
     private TextView longitudeText;
+    private RatDataManager ratDataManager;
 
 
     //the listview
     private ListView dataList;
 
 
-
-
+    /**
+     * This method creates all the references
+     * @param savedInstanceState saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Bug", "Attempting to Create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rat_data_viewer);
         data = new String[10000][9];
         dataList = (ListView) findViewById(R.id.ratDataView);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("report2");
-        //Log.d("Bug", "referenceBeGot");
+        ratDataManager = RatDataManager.getInstance();
+        Log.d("Bug", "Attempting display");
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        Log.d("Bug", "Attempting Population");
+        populateList();
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int i = 0;
-                //Log.d("Bug", "KeyBeGot");
-                for(DataSnapshot item: dataSnapshot.getChildren()) {
-                    data[i][0] = item.getKey(); //unique key
-                    int j = 1;
-                    for (DataSnapshot values: item.getChildren()) {
-                        String temp = (String) values.getValue();
-                        if (temp.length() < 2) {
-                            temp = "Not Reported";
-                        }
-                        data[i][j] = temp; //(String) values.getValue();
-                        j++;
-                    }
-                    ratData[i] = new RatData(data[i][0], data[i][4], data[i][5], data[i][8], data[i][1],
-                            data[i][3], data[i][2], data[i][7], data[i][6]);
-                    i++;
-                    populateList();
-                }
-                display(0);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         keyText = (TextView) findViewById(R.id.keyText);
         locTypeText = (TextView) findViewById(R.id.locTypeText);
@@ -101,12 +78,14 @@ public class RatDataViewer extends AppCompatActivity {
         zipText = (TextView) findViewById(R.id.zipText);
         latitudeText = (TextView) findViewById(R.id.latitudeText);
         longitudeText = (TextView) findViewById(R.id.longitudeText);
+
         dataList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 display(i);
             }
         });
+        display(0);
 
 
     }
@@ -114,22 +93,28 @@ public class RatDataViewer extends AppCompatActivity {
 
 
     private void display(int location) {
-        String dat = "This is Key for start item: " + data[location][0];
-        Log.d("Bug", dat);
-        keyText.setText(data[location][0]); //unique key
-        locTypeText.setText(data[location][5]); //location type
-        dateText.setText(data[location][4]); //creation date
-        addressText.setText(data[location][1]); //address
-        cityText.setText(data[location][3]); //city
-        boroughText.setText(data[location][2]); //borough
-        zipText.setText(data[location][8]); //zip
-        latitudeText.setText(data[location][7]); //latitude
-        longitudeText.setText(data[location][6]); //longitude
+        Log.d("Bug", "Displaying");
+        RatData[] ratData = ratDataManager.getRatData();
+        RatData interestingData = ratData[location];
+        Log.d("Bug", "Gotten Data" + interestingData);
+
+        keyText.setText(interestingData.getUniqueKey()); //unique key
+        Log.d("Bug", "Gotten Key");
+        locTypeText.setText(interestingData.getLocType()); //location type
+        dateText.setText(interestingData.getCreatedDate()); //creation date
+        addressText.setText(interestingData.getIncidentAddr()); //address
+        cityText.setText(interestingData.getCity()); //city
+        boroughText.setText(interestingData.getBorough()); //borough
+        zipText.setText(interestingData.getIncidentZip()); //zip
+        latitudeText.setText(interestingData.getLatitude()); //latitude
+        longitudeText.setText(interestingData.getLongtitude()); //longitude
+        Log.d("Bug", "Placed Data");
     }
 
     private void populateList() {
-        ArrayAdapter<RatData> listViewAdapter = new ArrayAdapter<RatData>(this, android.R.layout.simple_list_item_activated_1, ratData);
+        ArrayAdapter<RatData> listViewAdapter = new ArrayAdapter<RatData>(this, android.R.layout.simple_list_item_activated_1, ratDataManager.getRatData());
         dataList.setAdapter(listViewAdapter);
+
     }
 
 
