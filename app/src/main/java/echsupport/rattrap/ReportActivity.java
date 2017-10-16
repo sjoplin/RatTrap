@@ -26,6 +26,7 @@ public class ReportActivity extends AppCompatActivity {
     private EditText boroughEdit;
     private EditText longEdit;
     private Button reportButton;
+    private RatDataManager ratDataManager;
 
 
 
@@ -35,6 +36,7 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        ratDataManager = RatDataManager.getInstance();
 
         keyEdit = (EditText) findViewById(R.id.keyInput);
         addressEdit = (EditText) findViewById(R.id.addressInput);
@@ -46,16 +48,6 @@ public class ReportActivity extends AppCompatActivity {
         boroughEdit = (EditText) findViewById(R.id.boroughInput);
         longEdit = (EditText) findViewById(R.id.longitudeInput);
 
-        String key = (String) keyEdit.getHint();
-        String address = (String) addressEdit.getHint();
-        String zip = (String) zipEdit.getHint();
-        String date = (String) dateEdit.getHint();
-        String city = (String) cityEdit.getHint();
-        String lat = (String) latEdit.getHint();
-        String locType = (String) locTypeEdit.getHint();
-        String borough = (String) boroughEdit.getHint();
-        String longitude = (String) longEdit.getHint();
-
 
 
         reportButton = (Button) findViewById(R.id.reportButton);
@@ -63,6 +55,15 @@ public class ReportActivity extends AppCompatActivity {
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String key = (String) keyEdit.getHint();
+                String address = (String) addressEdit.getHint();
+                String zip = (String) zipEdit.getHint();
+                String date = (String) dateEdit.getHint();
+                String city = (String) cityEdit.getHint();
+                String lat = (String) latEdit.getHint();
+                String locType = (String) locTypeEdit.getHint();
+                String borough = (String) boroughEdit.getHint();
+                String longitude = (String) longEdit.getHint();
                 addData(key, date, locType, zip, address, city, borough, lat, longitude);
             }
         });
@@ -70,9 +71,9 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void addData(String key, String date, String locType, String zip,
-                         String address, String city, String borough, String lat, String long) {
-        RatData rat = new RatData(key, date, locType, zip, address, city, borough, lat, long);
-
+                         String address, String city, String borough, String lat, String longitude) {
+        RatData rat = new RatData(key, date, locType, zip, address, city, borough, lat, longitude);
+        ratDataManager.addRatData(rat);
     }
 
 
