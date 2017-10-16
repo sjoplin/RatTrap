@@ -1,6 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif"
+            android:text="Report a Rat"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textColor="@android:color/black"
+            android:typeface="serif" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/keyTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Key"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/keyInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_key"
+                    android:imeActionId="@+id/key"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+
+                <TextView
+                    android:id="@+id/addressTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/addressInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_address"
+                    android:imeActionId="@+id/address"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/zipTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Zip"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/zipInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_zip"
+                    android:imeActionId="@+id/zip"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".33"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dateTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/dateInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_date"
+                    android:imeActionId="@+id/date"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/cityTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="City"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/cityInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_city"
+                    android:imeActionId="@+id/city"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/latitudeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Latitude"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/latitudeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_latitude"
+                    android:imeActionId="@+id/latitude"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".33"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/locTypeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location Type"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/locTypeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_locationType"
+                    android:imeActionId="@+id/locationType"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/boroughTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Borough"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/boroughInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_borough"
+                    android:imeActionId="@+id/borough"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/longitudeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Longitude"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/longitudeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/prompt_longitude"
+                    android:imeActionId="@+id/longitude"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.20"
+            android:layout_marginTop="20dp"
+            android:text="Report" />
+
+    </LinearLayout>
+</GridLayout>
