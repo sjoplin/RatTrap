@@ -32,7 +32,7 @@
                 <TextView
                     android:id="@+id/key"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Key"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textSize="18sp" />

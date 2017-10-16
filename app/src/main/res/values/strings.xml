@@ -16,4 +16,13 @@
     </string>
     <string name="title_activity_profile_page">ProfilePage</string>
     <string name="not_reported">Not Reported</string>
+    <string name="prompt_key">Key</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_zip">Zip</string>
+    <string name="prompt_date">Date</string>
+    <string name="prompt_city">City</string>
+    <string name="prompt_latitude">Latitude</string>
+    <string name="prompt_locationType">Loc. Type</string>
+    <string name="prompt_borough">Borough</string>
+    <string name="prompt_longitude">Longitude</string>
 </resources>
