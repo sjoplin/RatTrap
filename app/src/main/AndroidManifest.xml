@@ -31,6 +31,10 @@
             android:name=".RatDataViewer"
             android:label="RatDataViewer"
             ></activity>
+        <activity
+            android:name=".ReportActivity"
+            android:label="ReportActivity"
+            ></activity>
 
     </application>
 
