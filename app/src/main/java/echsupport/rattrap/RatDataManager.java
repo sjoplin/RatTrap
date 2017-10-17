@@ -64,7 +64,11 @@ class RatDataManager {
     }
 
     public void addRatData(RatData newRat) {
-        ratData[numRats] = newRat;
+        for (int i = numRats; i > 0; i--) {
+            ratData[numRats] = ratData[numRats -1];
+        }
+        ratData[0] = newRat;
         numRats++;
+        Log.d("BugReport", "" + ratData[0]);
     }
 }

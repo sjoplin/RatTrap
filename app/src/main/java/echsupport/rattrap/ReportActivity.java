@@ -1,5 +1,7 @@
 package echsupport.rattrap;
 
+import android.content.Intent;
+import android.icu.text.LocaleDisplayNames;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.firebase.database.DataSnapshot;
@@ -7,6 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,15 +29,13 @@ public class ReportActivity extends AppCompatActivity {
     private EditText locTypeEdit;
     private EditText boroughEdit;
     private EditText longEdit;
-    private Button reportButton;
+    private Button mReportButton;
     private RatDataManager ratDataManager;
-
-
-
     private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("BugReport", "Report Loaded");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
         ratDataManager = RatDataManager.getInstance();
@@ -50,21 +52,24 @@ public class ReportActivity extends AppCompatActivity {
 
 
 
-        reportButton = (Button) findViewById(R.id.reportButton);
+        mReportButton = (Button) findViewById(R.id.reportButton);
 
-        reportButton.setOnClickListener(new View.OnClickListener() {
+        mReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String key = (String) keyEdit.getHint();
-                String address = (String) addressEdit.getHint();
-                String zip = (String) zipEdit.getHint();
-                String date = (String) dateEdit.getHint();
-                String city = (String) cityEdit.getHint();
-                String lat = (String) latEdit.getHint();
-                String locType = (String) locTypeEdit.getHint();
-                String borough = (String) boroughEdit.getHint();
-                String longitude = (String) longEdit.getHint();
+                Log.d("BugReport", "Help Ive been clicked!");
+                String key = keyEdit.getText().toString();
+                String address = addressEdit.getText().toString();
+                String zip = zipEdit.getText().toString();
+                String date = dateEdit.getText().toString();
+                String city = cityEdit.getText().toString();
+                String lat = latEdit.getText().toString();
+                String locType = locTypeEdit.getText().toString();
+                String borough = boroughEdit.getText().toString();
+                String longitude = longEdit.getText().toString();
                 addData(key, date, locType, zip, address, city, borough, lat, longitude);
+                Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
+                startActivity(intent);
             }
         });
         mDatabase = FirebaseDatabase.getInstance().getReference().child("report2");
@@ -72,8 +77,10 @@ public class ReportActivity extends AppCompatActivity {
 
     private void addData(String key, String date, String locType, String zip,
                          String address, String city, String borough, String lat, String longitude) {
+        Log.d("BugReport", "Adding new Data");
         RatData rat = new RatData(key, date, locType, zip, address, city, borough, lat, longitude);
         ratDataManager.addRatData(rat);
+        Log.d("BugReport", "Ive added it");
     }
 
 

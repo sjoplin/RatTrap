@@ -27,12 +27,32 @@ public class ProfilePage extends AppCompatActivity {
     private AccountManager accMan = AccountManager.getInstance();
     private String temp;
     private String temp2;
+    private Button viewerButton;
+    private Button adderButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
+        viewerButton = (Button) findViewById(R.id.viewerButton);
+        adderButton = (Button) findViewById(R.id.adderButton);
+
+        viewerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
+                startActivity(intent);
+            }
+        });
+
+        adderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button logout = (Button) findViewById(R.id.logoutbutton);
         logout.setOnClickListener(new View.OnClickListener() {
