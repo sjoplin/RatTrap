@@ -60,50 +60,50 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 accMan.logout();
-//                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
                 startActivity(intent);
             }
         });
 
-//        TextView nameText = (TextView) findViewById(R.id.NameText);
+        TextView nameText = (TextView) findViewById(R.id.NameText);
 
 
 
-//        temp = "";
-//        FirebaseAuth authM = FirebaseAuth.getInstance();
-//        FirebaseUser user = authM.getCurrentUser();
-//        String userName = user.getEmail().replace('.','-');
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference userAccount = database.getReference().child("user").child(userName);
-//        DatabaseReference name = userAccount.child("name");
-//        DatabaseReference admin = userAccount.child("admin");
-//        //temp = accMan.getCurAcc().getRegStat().toString();
-//        name.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                temp = dataSnapshot.getValue(String.class);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                temp = "";
-//            }
-//        });
-//
-//        admin.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                temp2 = dataSnapshot.getValue(String.class);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                temp2 = "";
-//            }
-//        });
-//        String temp2 = "";
-//        //temp2 = accMan.getCurAcc().getName();
-//
-//        nameText.setHint("" + temp + ":   "  + temp2);
+        temp = "";
+        FirebaseAuth authM = FirebaseAuth.getInstance();
+        FirebaseUser user = authM.getCurrentUser();
+        String userName = user.getEmail().replace('.','-');
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userAccount = database.getReference().child("user").child(userName);
+        DatabaseReference name = userAccount.child("name");
+        DatabaseReference admin = userAccount.child("admin");
+        //temp = accMan.getCurAcc().getRegStat().toString();
+        name.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                temp = dataSnapshot.getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                temp = "";
+            }
+        });
+
+        admin.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                temp2 = dataSnapshot.getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                temp2 = "";
+            }
+        });
+        String temp2 = "";
+        //temp2 = accMan.getCurAcc().getName();
+
+        nameText.setHint("" + temp + ":   "  + temp2);
     }
 
 }
