@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ProfilePage extends AppCompatActivity {
-    private AccountManager accMan = AccountManager.getInstance();
+    private AccountManager accMan;
     private String temp;
     private String temp2;
     private Button viewerButton;
@@ -34,7 +35,7 @@ public class ProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-
+        accMan = AccountManager.getInstance();
         viewerButton = (Button) findViewById(R.id.viewerButton);
         adderButton = (Button) findViewById(R.id.adderButton);
 
@@ -59,50 +60,50 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 accMan.logout();
-                FirebaseAuth.getInstance().signOut();
+//                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
                 startActivity(intent);
             }
         });
 
-        TextView nameText = (TextView) findViewById(R.id.NameText);
+//        TextView nameText = (TextView) findViewById(R.id.NameText);
 
 
 
-        temp = "";
-        FirebaseAuth authM = FirebaseAuth.getInstance();
-        FirebaseUser user = authM.getCurrentUser();
-        String userName = user.getEmail().replace('.','-');
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userAccount = database.getReference().child("user").child(userName);
-        DatabaseReference name = userAccount.child("name");
-        DatabaseReference admin = userAccount.child("admin");
-        //temp = accMan.getCurAcc().getRegStat().toString();
-        name.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                temp = dataSnapshot.getValue(String.class);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                temp = "";
-            }
-        });
-
-        admin.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                temp2 = dataSnapshot.getValue(String.class);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                temp2 = "";
-            }
-        });
-        String temp2 = "";
-        //temp2 = accMan.getCurAcc().getName();
-
-        nameText.setHint("" + temp + ":   "  + temp2);
+//        temp = "";
+//        FirebaseAuth authM = FirebaseAuth.getInstance();
+//        FirebaseUser user = authM.getCurrentUser();
+//        String userName = user.getEmail().replace('.','-');
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference userAccount = database.getReference().child("user").child(userName);
+//        DatabaseReference name = userAccount.child("name");
+//        DatabaseReference admin = userAccount.child("admin");
+//        //temp = accMan.getCurAcc().getRegStat().toString();
+//        name.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                temp = dataSnapshot.getValue(String.class);
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                temp = "";
+//            }
+//        });
+//
+//        admin.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                temp2 = dataSnapshot.getValue(String.class);
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                temp2 = "";
+//            }
+//        });
+//        String temp2 = "";
+//        //temp2 = accMan.getCurAcc().getName();
+//
+//        nameText.setHint("" + temp + ":   "  + temp2);
     }
 
 }

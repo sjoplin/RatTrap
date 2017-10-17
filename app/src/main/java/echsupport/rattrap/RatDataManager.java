@@ -34,21 +34,28 @@ class RatDataManager {
                 //Log.d("Bug", "KeyBeGot");
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     data[i][0] = item.getKey(); //unique key
-                    Log.d("Bug", "" + data[0][0]);
+//                    Log.d("Bug", "" + data[0][0]);
                     int j = 1;
+
                     for (DataSnapshot values : item.getChildren()) {
-                        String temp = (String) values.getValue();
-                        if (temp.length() < 2) {
-                            temp = "Not Reported";
+                        if (j < 9) {
+                            String temp = (String) values.getValue();
+                            if (temp.length() < 2) {
+                                temp = "Not Reported";
+                            }
+                            data[i][j] = temp; //(String) values.getValue();
+                            j++;
+                        } else {
+                            Log.d("Bug","Heres bad Key: " + i + data[i][0]);
                         }
-                        data[i][j] = temp; //(String) values.getValue();
-                        j++;
                     }
+
                     ratData[i] = new RatData(data[i][0], data[i][4], data[i][5], data[i][8], data[i][1],
                             data[i][3], data[i][2], data[i][7], data[i][6]);
                     i++;
                 }
                 numRats = i;
+                Log.d("Bug", "Finished Getting Data");
             }
 
             @Override
@@ -56,6 +63,7 @@ class RatDataManager {
 
             }
         });
+
     }
 
 
