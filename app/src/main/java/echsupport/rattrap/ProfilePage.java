@@ -99,7 +99,7 @@ public class ProfilePage extends AppCompatActivity {
                 temp2 = "";
             }
         });
-        temp2 = "";
+        String temp2 = "";
         //temp2 = accMan.getCurAcc().getName();
 
         nameText.setHint("" + temp + ":   "  + temp2);
