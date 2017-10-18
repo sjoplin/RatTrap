@@ -1,4 +1,4 @@
-package echsupport.rattrap;
+package echsupport.rattrap.Model;
 
 
 import android.util.Log;

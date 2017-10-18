@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeScreen">
+        <activity android:name=".Controller.WelcomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,19 +20,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Controller.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".ProfilePage"
+            android:name=".Controller.ProfilePage"
             android:label="@string/title_activity_profile_page"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
         <activity
-            android:name=".RatDataViewer"
+            android:name=".Controller.RatDataViewer"
             android:label="RatDataViewer"
             ></activity>
         <activity
-            android:name=".ReportActivity"
+            android:name=".Controller.ReportActivity"
             android:label="ReportActivity"
             ></activity>
 

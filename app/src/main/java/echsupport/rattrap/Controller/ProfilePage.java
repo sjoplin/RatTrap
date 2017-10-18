@@ -1,12 +1,8 @@
-package echsupport.rattrap;
+package echsupport.rattrap.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,13 +15,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
+import echsupport.rattrap.Model.Model;
+import echsupport.rattrap.R;
 
 public class ProfilePage extends AppCompatActivity {
-    private AccountManager accMan;
+    private Model model = Model.getInstance();
     private String temp;
     private String temp2;
     private Button viewerButton;
@@ -35,7 +30,6 @@ public class ProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-        accMan = AccountManager.getInstance();
         viewerButton = (Button) findViewById(R.id.viewerButton);
         adderButton = (Button) findViewById(R.id.adderButton);
 
@@ -59,7 +53,7 @@ public class ProfilePage extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accMan.logout();
+                Model.getAccountManager().logout();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
                 startActivity(intent);
