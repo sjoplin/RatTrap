@@ -75,7 +75,7 @@ public class RatDataViewer extends AppCompatActivity {
                 display(i);
             }
         });
-        display(0);
+        display(5);
 
 
     }
