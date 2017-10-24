@@ -18,4 +18,21 @@
         android:layout_row="1"
         android:text="Name:"
         android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/viewerButton"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:text="View" />
+    <Button
+        android:id="@+id/adderButton"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:text="Report" />
 </GridLayout>

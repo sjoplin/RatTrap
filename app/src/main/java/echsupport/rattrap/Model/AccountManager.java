@@ -1,7 +1,8 @@
-package echsupport.rattrap;
-import android.content.Intent;
+package echsupport.rattrap.Model;
 
 import java.util.HashMap;
+
+import echsupport.rattrap.RegistrationStatus;
 
 /**
  * Created by sjoplin on 9/24/17.
@@ -10,7 +11,7 @@ import java.util.HashMap;
 /**
  * This class manages all of the accounts. It is a singleton and uses a hashmap for backing
  */
-class AccountManager {
+public class AccountManager {
     //hashmap for backing and Accountmanager instance is to make sure theres only one ever.
     private static HashMap<String, Account> accountHashMap;
     private static AccountManager instance = null;
