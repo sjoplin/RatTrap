@@ -13,6 +13,8 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
+
 import echsupport.rattrap.Model.Model;
 import echsupport.rattrap.Model.RatData;
 import echsupport.rattrap.Model.RatDataManager;
@@ -89,14 +91,14 @@ public class RatDataViewer extends AppCompatActivity {
      */
     private void display(int location) {
         Log.d("Bug", "Displaying");
-        RatData[] ratData = ratDataManager.getRatData();
-        RatData interestingData = ratData[location];
+        ArrayList<RatData> ratData = ratDataManager.getRatData();
+        RatData interestingData = ratData.get(location);
         Log.d("Bug", "Gotten Data" + interestingData);
         if (interestingData != null) {
             keyText.setText(interestingData.getUniqueKey()); //unique key
             Log.d("Bug", "Gotten Key");
             locTypeText.setText(interestingData.getLocType()); //location type
-            dateText.setText(interestingData.getCreatedDate()); //creation date
+            dateText.setText(interestingData.getCreatedDate().toString()); //creation date
             addressText.setText(interestingData.getIncidentAddr()); //address
             cityText.setText(interestingData.getCity()); //city
             boroughText.setText(interestingData.getBorough()); //borough

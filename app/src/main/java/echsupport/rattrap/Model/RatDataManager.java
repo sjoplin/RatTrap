@@ -8,13 +8,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  * Created by sjoplin on 10/15/17.
  */
 
 public class RatDataManager {
     private static final RatDataManager ourInstance = new RatDataManager();
-    private static RatData[] ratData = new RatData[10000];
+    private static ArrayList<RatData> ratDataArrayList = new ArrayList<>();
+
     private static int numRats;
     private static String[][] data = new String[10000][9];
 
@@ -39,7 +44,7 @@ public class RatDataManager {
 
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
 //                    makes sure we dont go over array size. Dont really need more than 9000
-                    if (i < 9000) {
+                    if (i < 100) {
                         data[i][0] = item.getKey(); //unique key
 //                      Log.d("Bug", "" + data[0][0]);
                         int j = 1;
@@ -61,8 +66,9 @@ public class RatDataManager {
                         }
 //                        creates a rat object. If we switch to have objects in database, we will need
 //                        to change this
-                        ratData[i] = new RatData(data[i][0], data[i][4], data[i][5], data[i][8], data[i][1],
-                                data[i][3], data[i][2], data[i][7], data[i][6]);
+                        ratDataArrayList.add(new RatData(data[i][0], data[i][4], data[i][5], data[i][8], data[i][1],
+                                data[i][3], data[i][2], data[i][7], data[i][6]));
+                        Collections.sort(ratDataArrayList);
                         i++;
                     }
                 }
@@ -81,8 +87,8 @@ public class RatDataManager {
      * this returns the array of all data pulled
      * @return all rat data
      */
-    public RatData[] getRatData() {
-        return ratData;
+    public ArrayList<RatData> getRatData() {
+        return ratDataArrayList;
     }
 
     /**
@@ -91,11 +97,10 @@ public class RatDataManager {
      * @param newRat the rat that will be added
      */
     public void addRatData(RatData newRat) {
-        for (int i = numRats; i > 0; i--) {
-            ratData[numRats] = ratData[numRats -1];
-        }
-        ratData[0] = newRat;
+
+        ratDataArrayList.add(0, newRat);
+        Collections.sort(ratDataArrayList);
         numRats++;
-        Log.d("BugReport", "" + ratData[0]);
+        Log.d("BugReport", "" + ratDataArrayList.get(0));
     }
 }
