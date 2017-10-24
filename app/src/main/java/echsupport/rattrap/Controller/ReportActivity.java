@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Date;
+
 import echsupport.rattrap.Model.Model;
 import echsupport.rattrap.Model.RatData;
 import echsupport.rattrap.Model.RatDataManager;
@@ -64,7 +66,7 @@ public class ReportActivity extends AppCompatActivity {
                 String key = keyEdit.getText().toString();
                 String address = addressEdit.getText().toString();
                 String zip = zipEdit.getText().toString();
-                String date = dateEdit.getText().toString();
+                Date date = new Date();
                 String city = cityEdit.getText().toString();
                 String lat = latEdit.getText().toString();
                 String locType = locTypeEdit.getText().toString();
@@ -78,10 +80,10 @@ public class ReportActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("report2");
     }
 
-    private void addData(String key, String date, String locType, String zip,
+    private void addData(String key, Date date, String locType, String zip,
                          String address, String city, String borough, String lat, String longitude) {
         Log.d("BugReport", "Adding new Data");
-        RatData rat = new RatData(key, date, locType, zip, address, city, borough, lat, longitude);
+        RatData rat = new RatData(borough, city, date, address, zip, lat, locType, longitude, key);
         ratDataManager.addRatData(rat);
         Log.d("BugReport", "Ive added it");
     }

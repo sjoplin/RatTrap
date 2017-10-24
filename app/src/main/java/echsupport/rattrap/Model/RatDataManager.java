@@ -34,7 +34,7 @@ public class RatDataManager {
     private RatDataManager() {
         int i = 0;
         try {
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSortByDate").child("2017").child("OCTOBER");
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child("2017").child("9");
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -118,7 +118,6 @@ public class RatDataManager {
     public void addRatData(RatData newRat) {
 
         ratDataArrayList.add(0, newRat);
-        Collections.sort(ratDataArrayList);
         numRats++;
         Log.d("BugReport", "" + ratDataArrayList.get(0));
     }
