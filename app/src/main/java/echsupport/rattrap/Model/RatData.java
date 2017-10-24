@@ -4,6 +4,8 @@ package echsupport.rattrap.Model;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by sjoplin on 10/13/17.
  */
@@ -18,6 +20,7 @@ public class RatData implements Comparable<RatData> {
     private String borough = "Not Reported";
     private String latitude = "Not Reported";
     private String longitude = "Not Reported";
+    private LocalDateTime localDateTime;
 
     public RatData () {
     }
@@ -33,14 +36,32 @@ public class RatData implements Comparable<RatData> {
         this.borough = borough;
         this.latitude = latitude;
         this.longitude = longitude;
+        try {
+            localDateTime = dateToLocal(createdDate);
+        } catch (Exception e) {
+            localDateTime = LocalDateTime.now();
+        }
+    }
+
+    public RatData (String uniqueKey, LocalDateTime localDateTime, String locType, String incidentZip, String incidentAddr,
+                    String city, String borough, String latitude, String longitude) {
+        this.uniqueKey = uniqueKey;
+        this.localDateTime = localDateTime;
+        this.locType = locType;
+        this.incidentZip = incidentZip;
+        this.incidentAddr = incidentAddr;
+        this.city = city;
+        this.borough = borough;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getUniqueKey() {
         Log.d("Bug", "Key getting");
         return uniqueKey;
     }
-    public String getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedDate() {
+        return localDateTime;
     }
     public String getLocType() {
         return locType;
@@ -68,47 +89,70 @@ public class RatData implements Comparable<RatData> {
 
     @Override
     public int compareTo(RatData other) {
-        int otherDate = dateToInt(other.getCreatedDate());
-        int thisDate = dateToInt(this.getCreatedDate());
-        return otherDate - thisDate;
+        return -1 * localDateTime.compareTo(other.getCreatedDate());
     }
+
+    private LocalDateTime dateToLocal(String date) {
+        String year = date.substring(6, 10);
+        int yearInt = Integer.parseInt(year);
+        String month = date.substring(3, 5);
+        int monthInt = Integer.parseInt(month);
+        String day = date.substring(0, 2);
+        int dayInt = Integer.parseInt(day);
+        String hour = date.substring(11, 13);
+        int hourInt = Integer.parseInt(hour);
+        String minute = date.substring(14, 16);
+        int minuteInt = Integer.parseInt(minute);
+        String seconds = date.substring(17, 19);
+        int secondsInt = Integer.parseInt(seconds);
+        return LocalDateTime.of(yearInt, monthInt, dayInt, hourInt, minuteInt, secondsInt);
+    }
+
 
     private int dateToInt(String date) {
         int total = 0;
         String message = "";
         try {
             String year = date.substring(6, 10);
-            String month = date.substring(3, 5);
-            String day = date.substring(0, 2);
-            String hour = date.substring(11, 13);
-            String minute = date.substring(14, 16);
-            String seconds = date.substring(17, 19);
-
             int yearInt = Integer.parseInt(year);
             yearInt = yearInt << 10;
             total += yearInt;
             message += "Year: " + year;
+
+            String month = date.substring(3, 5);
             int monthInt = Integer.parseInt(month);
             monthInt = monthInt << 8;
             total += monthInt;
             message += " Month: " + month;
+
+            String day = date.substring(0, 2);
             int dayInt = Integer.parseInt(day);
             dayInt = dayInt << 6;
             total += dayInt;
             message += " Day: " + day;
+
+            String hour = date.substring(11, 13);
             int hourInt = Integer.parseInt(hour);
             hourInt = hourInt << 4;
             total += hourInt;
             message += " Hour: " + hour;
+
+            String minute = date.substring(14, 16);
             int minuteInt = Integer.parseInt(minute);
             minuteInt = minuteInt << 2;
             total += minuteInt;
             message += " Minute: " + minute;
+
+            String seconds = date.substring(17, 19);
             int secondsInt = Integer.parseInt(seconds);
             total += secondsInt;
             message += " Seconds: " + seconds;
+
         } catch (NumberFormatException e) {
-            Log.d("Error", "Badly Formatted Date: ");
+            Log.d("Error", "Badly Formatted Date: " + message);
+            return total;
+        } catch (IndexOutOfBoundsException e) {
+            Log.d("Error", "Not long enough date: " + message);
             return total;
         }
         return total;
