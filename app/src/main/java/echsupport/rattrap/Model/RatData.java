@@ -26,9 +26,6 @@ public class RatData implements Comparable<RatData> {
         createdDate = new Date();
     }
 
-    public RatData () {
-    }
-
     public RatData (String uniqueKey, String createdDate, String locType, String incidentZip, String incidentAddr,
                     String city, String borough, String latitude, String longitude) {
         this.uniqueKey = uniqueKey;
