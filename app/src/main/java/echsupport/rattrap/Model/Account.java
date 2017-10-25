@@ -1,6 +1,8 @@
-package echsupport.rattrap;
+package echsupport.rattrap.Model;
 
 import java.lang.Math;
+
+import echsupport.rattrap.RegistrationStatus;
 
 /**
  * Created by sjoplin on 9/24/17.

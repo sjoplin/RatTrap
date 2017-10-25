@@ -1,4 +1,4 @@
-package echsupport.rattrap;
+package echsupport.rattrap.Controller;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -14,12 +14,10 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -30,12 +28,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,18 +38,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 import android.widget.Spinner;
+
+import echsupport.rattrap.Model.AccountManager;
+import echsupport.rattrap.Model.RatDataManager;
+import echsupport.rattrap.RegistrationStatus;
+import echsupport.rattrap.R;
 
 /**
  * A login screen that offers login via email/password.
@@ -65,8 +59,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    private RatDataManager ratDataManager = RatDataManager.getInstance();
 
     /**
      * this is the the set up to listen for auth state
@@ -293,7 +285,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("LoginActivity", "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
+                                Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -347,7 +339,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         DatabaseReference newUser = userData.child(email.replace('.','-'));
                         newUser.child("name").setValue(mRegNameView.getText().toString());
                         newUser.child("admin").setValue(spinner.getSelectedItem().toString());
-                        Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
+                        Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
                         startActivity(intent);
 
                         // If sign in fails, display a message to the user. If sign in succeeds

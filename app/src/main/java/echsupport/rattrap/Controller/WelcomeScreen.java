@@ -1,10 +1,12 @@
-package echsupport.rattrap;
+package echsupport.rattrap.Controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import echsupport.rattrap.R;
 
 
 public class WelcomeScreen extends AppCompatActivity {

@@ -1,29 +1,24 @@
-package echsupport.rattrap;
+package echsupport.rattrap.Controller;
 
 
 
 import android.os.Bundle;
-import android.os.Debug;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+
+import echsupport.rattrap.Model.Model;
+import echsupport.rattrap.Model.RatData;
+import echsupport.rattrap.Model.RatDataManager;
+import echsupport.rattrap.R;
 
 /**
  * Created by sjoplin on 10/12/17.
@@ -33,6 +28,7 @@ public class RatDataViewer extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String[][] data;
     private RatData[] ratData = new RatData[10000];
+    private Model model = Model.getInstance();
 
     //All of the textView we will be writing
     private TextView keyText;
@@ -52,20 +48,16 @@ public class RatDataViewer extends AppCompatActivity {
 
 
     /**
-     * This method creates all the references
+     * This method creates all the references to text views
      * @param savedInstanceState saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("Bug", "Attempting to Create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rat_data_viewer);
         data = new String[10000][9];
         dataList = (ListView) findViewById(R.id.ratDataView);
-        ratDataManager = RatDataManager.getInstance();
-        Log.d("Bug", "Attempting display");
-
-        Log.d("Bug", "Attempting Population");
+        ratDataManager = Model.getRatDataManager();
         populateList();
 
 
@@ -85,32 +77,41 @@ public class RatDataViewer extends AppCompatActivity {
                 display(i);
             }
         });
-        display(0);
+        display(5);
 
 
     }
 
 
-
+    /**
+     * This indexes to the location specified by the param. It then makes sure that
+     * the object there is not null before pulling all the information and putting it
+     * in the text views
+     * @param location the index of the desired object
+     */
     private void display(int location) {
         Log.d("Bug", "Displaying");
-        RatData[] ratData = ratDataManager.getRatData();
-        RatData interestingData = ratData[location];
+        ArrayList<RatData> ratData = ratDataManager.getRatData();
+        RatData interestingData = ratData.get(location);
         Log.d("Bug", "Gotten Data" + interestingData);
-
-        keyText.setText(interestingData.getUniqueKey()); //unique key
-        Log.d("Bug", "Gotten Key");
-        locTypeText.setText(interestingData.getLocType()); //location type
-        dateText.setText(interestingData.getCreatedDate()); //creation date
-        addressText.setText(interestingData.getIncidentAddr()); //address
-        cityText.setText(interestingData.getCity()); //city
-        boroughText.setText(interestingData.getBorough()); //borough
-        zipText.setText(interestingData.getIncidentZip()); //zip
-        latitudeText.setText(interestingData.getLatitude()); //latitude
-        longitudeText.setText(interestingData.getLongtitude()); //longitude
+        if (interestingData != null) {
+            keyText.setText(interestingData.getUniqueKey()); //unique key
+            Log.d("Bug", "Gotten Key");
+            locTypeText.setText(interestingData.getLocType()); //location type
+            dateText.setText(interestingData.getCreatedDate().toString()); //creation date
+            addressText.setText(interestingData.getIncidentAddr()); //address
+            cityText.setText(interestingData.getCity()); //city
+            boroughText.setText(interestingData.getBorough()); //borough
+            zipText.setText(interestingData.getIncidentZip()); //zip
+            latitudeText.setText(interestingData.getLatitude()); //latitude
+            longitudeText.setText(interestingData.getLongtitude()); //longitude
+        }
         Log.d("Bug", "Placed Data");
     }
 
+    /**
+     * populates the list based on the data pulled in ratDataManager
+     */
     private void populateList() {
         ArrayAdapter<RatData> listViewAdapter = new ArrayAdapter<RatData>(this, android.R.layout.simple_list_item_activated_1, ratDataManager.getRatData());
         dataList.setAdapter(listViewAdapter);

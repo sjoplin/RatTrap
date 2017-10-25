@@ -4,7 +4,7 @@ package echsupport.rattrap;
  * Created by sjoplin on 10/2/17.
  */
 
-enum RegistrationStatus {
+public enum RegistrationStatus {
     USER(false, "User"), ADMIN(true, "Admin");
 
     private boolean priviledge;
