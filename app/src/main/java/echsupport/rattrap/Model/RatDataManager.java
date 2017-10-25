@@ -111,12 +111,17 @@ public class RatDataManager {
     }
 
     /**
-     * This will add rat data to the local database and not firebase yet
-     * TODO add firebase code
+     * This will add rat data to the local database and to firebase
      * @param newRat the rat that will be added
      */
     public void addRatData(RatData newRat) {
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reports = database.getReference().child("reportSorted");
+        DatabaseReference year = reports.child("" + newRat.getCreatedDate().getYear());
+        DatabaseReference month = year.child("" + newRat.getCreatedDate().getMonth());
+        DatabaseReference key = month.child("" + newRat.getUniqueKey());
+        key.setValue(newRat);
         ratDataArrayList.add(0, newRat);
         numRats++;
         Log.d("BugReport", "" + ratDataArrayList.get(0));
