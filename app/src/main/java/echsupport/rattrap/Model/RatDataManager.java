@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -125,5 +126,39 @@ public class RatDataManager {
         ratDataArrayList.add(0, newRat);
         numRats++;
         Log.d("BugReport", "" + ratDataArrayList.get(0));
+    }
+
+    /**
+     *
+     * @param year integer representation of year requested passed through spinner
+     * @param m month enum passed through spinner
+     *
+     * @return whether or not the data is loaded
+     */
+    public boolean getDataByDate(String year, Month m) {
+        try {
+            String month = "" + (m.getValue() - 1);
+            ratDataArrayList.clear();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int i = 0;
+                    for (DataSnapshot item : dataSnapshot.getChildren()) {
+                        ratDataArrayList.add(item.getValue(RatData.class));
+                        i++;
+                    }
+                    numRats = i;
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

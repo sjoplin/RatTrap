@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import echsupport.rattrap.MapsActivity;
 import echsupport.rattrap.Model.Model;
 import echsupport.rattrap.R;
 
@@ -25,6 +26,7 @@ public class ProfilePage extends AppCompatActivity {
     private String temp2;
     private Button viewerButton;
     private Button adderButton;
+    private Button mapButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class ProfilePage extends AppCompatActivity {
         setContentView(R.layout.activity_profile_page);
         viewerButton = (Button) findViewById(R.id.viewerButton);
         adderButton = (Button) findViewById(R.id.adderButton);
+        mapButton = (Button) findViewById(R.id.mapButton);
 
         viewerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +48,14 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
             }
         });
