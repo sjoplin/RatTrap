@@ -36,26 +36,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+
         dateButton = (Button) findViewById(R.id.dateButton);
 
         // Button onClickListener goes here ********
         //********************************************************
 
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        dateButton.setOnClickListener(new View.OnClickListener() {
+        dateButton.setOnClickListener(new View.OnClickListener() { //temporary on click listener takes you back to data viewer
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
                 startActivity(intent);
             }
         });
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
+
     }
 
 
@@ -72,6 +74,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        while(RatDataManager.loading);
         mMap = googleMap;
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(41, -74)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8));

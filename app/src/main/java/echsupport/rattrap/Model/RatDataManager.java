@@ -20,6 +20,7 @@ import java.util.Collections;
 public class RatDataManager {
     private static final RatDataManager ourInstance = new RatDataManager();
     private static ArrayList<RatData> ratDataArrayList = new ArrayList<>();
+    public static boolean loading = false;
 
     private static int numRats;
     private static String[][] data = new String[10000][9];
@@ -135,9 +136,10 @@ public class RatDataManager {
      *
      * @return whether or not the data is loaded
      */
-    public boolean getDataByDate(String year, Month m) {
+    public void getDataByDate(String year, Month m) {
         try {
             String month = "" + (m.getValue() - 1);
+            loading = true;
             ratDataArrayList.clear();
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
             mDatabase.addValueEventListener(new ValueEventListener() {
@@ -149,6 +151,7 @@ public class RatDataManager {
                         i++;
                     }
                     numRats = i;
+                    loading = false;
                 }
 
                 @Override
@@ -156,9 +159,8 @@ public class RatDataManager {
 
                 }
             });
-            return true;
         } catch (Exception e) {
-            return false;
+            Log.d("Bug", "could not load data for " + year + " " + m);
         }
     }
 }
