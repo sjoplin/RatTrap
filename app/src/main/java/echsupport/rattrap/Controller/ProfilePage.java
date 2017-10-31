@@ -27,6 +27,7 @@ public class ProfilePage extends AppCompatActivity {
     private Button viewerButton;
     private Button adderButton;
     private Button mapButton;
+    private Button graphButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class ProfilePage extends AppCompatActivity {
         viewerButton = (Button) findViewById(R.id.viewerButton);
         adderButton = (Button) findViewById(R.id.adderButton);
         mapButton = (Button) findViewById(R.id.mapButton);
+        graphButton = (Button) findViewById(R.id.graphButton);
 
         viewerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,14 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        graphButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), GraphActivity.class);
                 startActivity(intent);
             }
         });

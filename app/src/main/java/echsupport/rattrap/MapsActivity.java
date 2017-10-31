@@ -30,7 +30,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     private Model model = Model.getInstance();
-    private RatDataManager ratDataManager = model.getRatDataManager();
+    private RatDataManager ratDataManager = Model.getRatDataManager();
     private Button dateButton;
 
 
@@ -79,15 +79,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(41, -74)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
         ArrayList<RatData> data = ratDataManager.getRatData();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < data.size(); i++) {
             try{
                 RatData report = data.get(i);
-                String strAddress = report.getIncidentAddr();
-                strAddress = strAddress + " " + report.getIncidentZip();
-                Geocoder coder = new Geocoder(this);
-                Address addr = coder.getFromLocationName(strAddress, 1).get(0);
-                LatLng pos = new LatLng(addr.getLatitude(), addr.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(pos).title(report.getLocType()));
+                if (report != null) {
+                    String strAddress = report.getIncidentAddr();
+                    strAddress = strAddress + " " + report.getIncidentZip();
+                    Geocoder coder = new Geocoder(this);
+                    Address addr = coder.getFromLocationName(strAddress, 1).get(0);
+                    LatLng pos = new LatLng(addr.getLatitude(), addr.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(pos).title(report.getLocType()));
+                }
             } catch (Exception e) {
                 //log
             }
