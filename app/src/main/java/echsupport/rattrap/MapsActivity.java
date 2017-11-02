@@ -85,14 +85,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (int i = 0; i < 100; i++) {
             try{
                 RatData report = data.get(i);
-                if (report != null) {
-                    String strAddress = report.getIncidentAddr();
-                    strAddress = strAddress + " " + report.getIncidentZip();
-                    Geocoder coder = new Geocoder(this);
-                    Address addr = coder.getFromLocationName(strAddress, 1).get(0);
-                    LatLng pos = new LatLng(addr.getLatitude(), addr.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(pos).title(report.getLocType()));
-                }
+                String strAddress = report.getIncidentAddr();
+                strAddress = strAddress + " " + report.getIncidentZip();
+                Geocoder coder = new Geocoder(this);
+                Address addr = coder.getFromLocationName(strAddress, 1).get(0);
+                LatLng pos = new LatLng(addr.getLatitude(), addr.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(pos).title(report.getUniqueKey()));
             } catch (Exception e) {
                 //log
             }

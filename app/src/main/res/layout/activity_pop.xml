@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorAccent">
+
+    <TextView
+        android:id="@+id/what_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:text="What Year?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/black"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/spinner_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:maxLines="1"
+        android:layout_below="@+id/what_year"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/spinner_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:maxLines="1"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/what_month"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/what_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="What Month?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/spinner_year"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/filter_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Load Data"
+        android:layout_below="@+id/spinner_month"
+        android:layout_alignStart="@+id/spinner_month" />
+
+    <Button
+        android:id="@+id/go_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go To Maps"
+        android:layout_alignBaseline="@+id/filter_data"
+        android:layout_alignBottom="@+id/filter_data"
+        android:layout_alignEnd="@+id/spinner_month" />
+
+</RelativeLayout>

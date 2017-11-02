@@ -22,7 +22,7 @@
         android:layout_margin="5dp"
         android:background="@color/colorAccent"
         android:padding="8dp"
-        android:text="Enter Date"
+        android:text="Filter"
         android:textColor="#ffffff" />
 
 </RelativeLayout>
