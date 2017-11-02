@@ -49,6 +49,8 @@ public class GraphActivity extends AppCompatActivity {
         for (int i = 0; i < selectedMonth.maxLength(); i++) {
             dataPoints[i] = new DataPoint(i, reportsPerDay[i]);
         }
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Number of Reports");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Day of Month");
 
         LineGraphSeries<DataPoint> lineGraphSeries = new LineGraphSeries<>(dataPoints);
         graph.addSeries(lineGraphSeries);

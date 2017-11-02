@@ -26,4 +26,5 @@
     <string name="prompt_borough">Borough</string>
     <string name="prompt_longitude">Longitude</string>
     <string name="title_activity_maps">Map</string>
+    <string name="google_maps_key">AIzaSyDdp8ch9R08X6-4RRPGMCJnxOSHmmjLJx8</string>
 </resources>

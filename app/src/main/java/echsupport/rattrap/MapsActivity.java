@@ -79,7 +79,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(41, -74)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
         ArrayList<RatData> data = ratDataManager.getRatData();
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < 100; i++) {
             try{
                 RatData report = data.get(i);
                 if (report != null) {

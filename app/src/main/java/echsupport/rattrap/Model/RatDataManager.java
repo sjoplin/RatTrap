@@ -19,7 +19,7 @@ import java.util.Collections;
 
 public class RatDataManager {
     private static final RatDataManager ourInstance = new RatDataManager();
-    private static ArrayList<RatData> ratDataArrayList = new ArrayList<>();
+    private ArrayList<RatData> ratDataArrayList = new ArrayList<>();
     public static boolean loading = false;
 
     private static int numRats;
@@ -162,5 +162,9 @@ public class RatDataManager {
         } catch (Exception e) {
             Log.d("Bug", "could not load data for " + year + " " + m);
         }
+    }
+
+    public void setRatDataArrayList(ArrayList<RatData> ratDataArrayList) {
+        this.ratDataArrayList = ratDataArrayList;
     }
 }
