@@ -37,6 +37,7 @@ public class RatDataManager {
         int i = 0;
         try {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child("2017").child("9");
+            loading = true;
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -46,6 +47,8 @@ public class RatDataManager {
                         i++;
                     }
                     numRats = i;
+                    loading = false;
+                    Log.d("Bug", "Im done loading");
                 }
 
                 @Override

@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,6 +33,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Model model = Model.getInstance();
     private RatDataManager ratDataManager = Model.getRatDataManager();
     private Button dateButton;
+    private int selectedMonth;
+    private int selectedYear;
+    private DatePicker dp;
 
 
     @Override
@@ -40,15 +44,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         dateButton = (Button) findViewById(R.id.dateButton);
-
-        // Button onClickListener goes here ********
-        //********************************************************
+        selectedMonth = 10; //november
+        selectedYear = 2017;
 
         dateButton.setOnClickListener(new View.OnClickListener() { //temporary on click listener takes you back to data viewer
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
-                startActivity(intent);
+                createDateDialogue().show();
+
             }
         });
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -96,6 +99,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         }
 
+    }
+
+    private DatePickerDialog createDateDialogue() {
+        DatePickerDialog dpd = new DatePickerDialog(this, null, selectedYear, selectedMonth, 1);
+        return dpd;
     }
 
 }
