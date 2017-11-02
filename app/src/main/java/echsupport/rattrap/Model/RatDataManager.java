@@ -1,5 +1,6 @@
 package echsupport.rattrap.Model;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,6 +13,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+
+import echsupport.rattrap.Controller.GraphActivity;
 
 /**
  * Created by sjoplin on 10/15/17.
@@ -140,31 +143,34 @@ public class RatDataManager {
      * @return whether or not the data is loaded
      */
     public void getDataByDate(String year, Month m) {
-        try {
-            String month = "" + (m.getValue() - 1);
-            loading = true;
-            ratDataArrayList.clear();
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int i = 0;
-                    for (DataSnapshot item : dataSnapshot.getChildren()) {
-                        ratDataArrayList.add(item.getValue(RatData.class));
-                        i++;
-                    }
-                    numRats = i;
-                    loading = false;
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        } catch (Exception e) {
-            Log.d("Bug", "could not load data for " + year + " " + m);
-        }
+        String month = "" + (m.getValue() - 1);
+        new DownLoadFilesTask().execute(year, month, "graph");
+//        try {
+//            String month = "" + (m.getValue() - 1);
+//            loading = true;
+//            ratDataArrayList.clear();
+//            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
+//            mDatabase.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    int i = 0;
+//                    for (DataSnapshot item : dataSnapshot.getChildren()) {
+//                        ratDataArrayList.add(item.getValue(RatData.class));
+//                        i++;
+//                    }
+//                    numRats = i;
+//                    loading = false;
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//            Log.d("Bug", "could not load data for " + year + " " + m);
+//        }
     }
 
     public void setRatDataArrayList(ArrayList<RatData> ratDataArrayList) {
