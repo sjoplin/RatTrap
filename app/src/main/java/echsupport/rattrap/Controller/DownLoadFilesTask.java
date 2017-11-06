@@ -1,11 +1,10 @@
-package echsupport.rattrap.Model;
+package echsupport.rattrap.Controller;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,21 +14,35 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import echsupport.rattrap.Controller.LoadingScreen;
-import echsupport.rattrap.Controller.RatDataViewer;
-import echsupport.rattrap.R;
+import echsupport.rattrap.Model.Model;
+import echsupport.rattrap.Model.RatData;
 
 /**
  * Created by sjoplin on 11/1/17.
  */
 
 class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
-    View progressOverlay;
 
+    Context mContext;
+    ProgressDialog mDialog;
+
+    DownLoadFilesTask(Context context) {
+        this.mContext = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        mDialog = new ProgressDialog(mContext);
+        mDialog.setMessage("Loading...");
+        mDialog.show();
+    }
 
     @Override
     protected ArrayList<RatData> doInBackground(String... params) {
 //        Model.getCurScreen().showLoad();
+        mDialog.show();
         String year = params[0];
         String month = params[1];
         ArrayList<RatData> ratDataArrayList = new ArrayList<>();
@@ -38,7 +51,7 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Long i = 0l;
+                    Long i = 0L;
                     for (DataSnapshot item : dataSnapshot.getChildren()) {
                         ratDataArrayList.add(item.getValue(RatData.class));
                         i++;
@@ -60,13 +73,16 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
 
     @Override
     protected void onProgressUpdate(Integer... progress) {
-
+        super.onProgressUpdate(progress);
+        mDialog.show();
     }
 
 
     @Override
     protected void onPostExecute(ArrayList<RatData> result) {
         Model.getRatDataManager().setRatDataArrayList(result);
+        super.onPostExecute(result);
+        mDialog.dismiss();
 
     }
 }
