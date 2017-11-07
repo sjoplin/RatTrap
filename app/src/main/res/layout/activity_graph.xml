@@ -54,5 +54,11 @@
         android:layout_marginTop="25px"
         android:text="Home" />
 
+    <Button
+        android:id="@+id/Back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
 
 </LinearLayout>

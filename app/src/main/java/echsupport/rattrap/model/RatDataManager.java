@@ -12,6 +12,11 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
 
+<<<<<<< Updated upstream:app/src/main/java/echsupport/rattrap/model/RatDataManager.java
+=======
+//import echsupport.rattrap.Controller.DownLoadFilesTask;
+
+>>>>>>> Stashed changes:app/src/main/java/echsupport/rattrap/Model/RatDataManager.java
 /**
  * Created by sjoplin on 10/15/17.
  */
@@ -142,8 +147,37 @@ public class RatDataManager {
     public void getDataByDate(String year, Month m) {
 
         String month = "" + (m.getValue() - 1);
+<<<<<<< Updated upstream:app/src/main/java/echsupport/rattrap/model/RatDataManager.java
         new DownLoadFilesTask(Model.getContext()).execute(year, month, "graph");
 
+=======
+//        new DownLoadFilesTask().execute(year, month, "graph");
+//        try {
+//            String month = "" + (m.getValue() - 1);
+//            loading = true;
+//            ratDataArrayList.clear();
+//            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
+//            mDatabase.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    int i = 0;
+//                    for (DataSnapshot item : dataSnapshot.getChildren()) {
+//                        ratDataArrayList.add(item.getValue(RatData.class));
+//                        i++;
+//                    }
+//                    numRats = i;
+//                    loading = false;
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//            Log.d("Bug", "could not load data for " + year + " " + m);
+//        }
+>>>>>>> Stashed changes:app/src/main/java/echsupport/rattrap/Model/RatDataManager.java
     }
 
     public void setRatDataArrayList(ArrayList<RatData> ratDataArrayList) {
