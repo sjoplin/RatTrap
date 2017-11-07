@@ -1,6 +1,5 @@
-package echsupport.rattrap.Model;
+package echsupport.rattrap.model;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,10 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-
-import echsupport.rattrap.Controller.GraphActivity;
 
 /**
  * Created by sjoplin on 10/15/17.
@@ -136,6 +132,7 @@ public class RatDataManager {
     }
 
     /**
+     *Creates an async task so that we can throw up a loading screen
      *
      * @param year integer representation of year requested passed through spinner
      * @param m month enum passed through spinner
@@ -145,32 +142,8 @@ public class RatDataManager {
     public void getDataByDate(String year, Month m) {
 
         String month = "" + (m.getValue() - 1);
-        new DownLoadFilesTask().execute(year, month, "graph");
-//        try {
-//            String month = "" + (m.getValue() - 1);
-//            loading = true;
-//            ratDataArrayList.clear();
-//            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
-//            mDatabase.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    int i = 0;
-//                    for (DataSnapshot item : dataSnapshot.getChildren()) {
-//                        ratDataArrayList.add(item.getValue(RatData.class));
-//                        i++;
-//                    }
-//                    numRats = i;
-//                    loading = false;
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//            Log.d("Bug", "could not load data for " + year + " " + m);
-//        }
+        new DownLoadFilesTask(Model.getContext()).execute(year, month, "graph");
+
     }
 
     public void setRatDataArrayList(ArrayList<RatData> ratDataArrayList) {

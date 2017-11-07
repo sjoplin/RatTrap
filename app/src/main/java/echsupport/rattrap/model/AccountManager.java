@@ -1,4 +1,4 @@
-package echsupport.rattrap.Model;
+package echsupport.rattrap.model;
 
 import java.util.HashMap;
 
@@ -10,6 +10,7 @@ import echsupport.rattrap.RegistrationStatus;
 
 /**
  * This class manages all of the accounts. It is a singleton and uses a hashmap for backing
+ * No longer does anything because firebase handles everything
  */
 public class AccountManager {
     //hashmap for backing and Accountmanager instance is to make sure theres only one ever.

@@ -1,24 +1,23 @@
-package echsupport.rattrap.Controller;
-
+package echsupport.rattrap.controller;
 
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-import echsupport.rattrap.Model.Model;
-import echsupport.rattrap.Model.RatData;
-import echsupport.rattrap.Model.RatDataManager;
 import echsupport.rattrap.R;
+import echsupport.rattrap.model.Model;
+import echsupport.rattrap.model.RatData;
+import echsupport.rattrap.model.RatDataManager;
 
 /**
  * Created by sjoplin on 10/12/17.

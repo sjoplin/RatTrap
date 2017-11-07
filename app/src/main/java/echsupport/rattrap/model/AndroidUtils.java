@@ -1,4 +1,4 @@
-package echsupport.rattrap.Model;
+package echsupport.rattrap.model;
 
 /**
  * Created by Emilee on 10/30/17.

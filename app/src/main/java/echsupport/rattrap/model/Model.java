@@ -1,18 +1,23 @@
-package echsupport.rattrap.Model;
+package echsupport.rattrap.model;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
-
-import echsupport.rattrap.Controller.WelcomeScreen;
 
 /**
  * Created by sjoplin on 10/18/17.
  */
 
+
+/**
+ * this class maintains instances of all the singletons
+ * in order to make it easy for controllers to access them
+ */
 public class Model {
+    private static Context mContext;
     private static final Model ourInstance = new Model();
     private static final AccountManager accountManager = AccountManager.getInstance();
     private static final RatDataManager ratDataManager = RatDataManager.getInstance();
-    private static LoadingActivity curScreen = null;
+    private static AppCompatActivity curScreen = null;
     public static Model getInstance() {
         return ourInstance;
     }
@@ -29,11 +34,19 @@ public class Model {
         return ratDataManager;
     }
 
-    public static void setCurScreen(LoadingActivity curScreenTemp) {
+    public static void setCurScreen(AppCompatActivity curScreenTemp) {
         curScreen = curScreenTemp;
     }
 
-    public static LoadingActivity getCurScreen() {
+    public static AppCompatActivity getCurScreen() {
         return curScreen;
+    }
+
+    public static Context getContext() {
+        return mContext;
+    }
+
+    public static void setContext(Context context) {
+        mContext = context;
     }
 }

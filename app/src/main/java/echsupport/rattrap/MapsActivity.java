@@ -1,13 +1,10 @@
 package echsupport.rattrap;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,13 +16,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.time.Month;
 import java.util.ArrayList;
 
-import echsupport.rattrap.Controller.RatDataViewer;
-import echsupport.rattrap.Model.Model;
-import echsupport.rattrap.Model.RatData;
-import echsupport.rattrap.Model.RatDataManager;
+import echsupport.rattrap.model.Model;
+import echsupport.rattrap.model.RatData;
+import echsupport.rattrap.model.RatDataManager;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 

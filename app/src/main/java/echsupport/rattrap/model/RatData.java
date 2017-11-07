@@ -1,10 +1,8 @@
-package echsupport.rattrap.Model;
+package echsupport.rattrap.model;
 
 
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**

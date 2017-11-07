@@ -1,6 +1,5 @@
-package echsupport.rattrap.Controller;
+package echsupport.rattrap.model;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,9 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import echsupport.rattrap.Model.Model;
-import echsupport.rattrap.Model.RatData;
-
 /**
  * Created by sjoplin on 11/1/17.
  */
@@ -28,23 +24,35 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
 
     DownLoadFilesTask(Context context) {
         this.mContext = context;
+
+    }
+
+    DownLoadFilesTask() {
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Loading...");
-        mDialog.show();
+//        mDialog = new ProgressDialog(mContext);
+//        mDialog.setMessage("Loading...");
+//        mDialog.show();
+//        ProgressDialog.show(mContext, "Loading", "Please Wait");
     }
 
+
+    /**
+     *
+     * @param params the arguments passed in through exception
+     * @return
+     */
     @Override
     protected ArrayList<RatData> doInBackground(String... params) {
 //        Model.getCurScreen().showLoad();
-        mDialog.show();
+//        mDialog.show();
         String year = params[0];
         String month = params[1];
+        Model.getRatDataManager().setRatDataArrayList(null);
         ArrayList<RatData> ratDataArrayList = new ArrayList<>();
         try {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child(year).child(month);
@@ -74,7 +82,7 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
     @Override
     protected void onProgressUpdate(Integer... progress) {
         super.onProgressUpdate(progress);
-        mDialog.show();
+//        mDialog.show();
     }
 
 
@@ -82,7 +90,7 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
     protected void onPostExecute(ArrayList<RatData> result) {
         Model.getRatDataManager().setRatDataArrayList(result);
         super.onPostExecute(result);
-        mDialog.dismiss();
+//        mDialog.dismiss();
 
     }
 }

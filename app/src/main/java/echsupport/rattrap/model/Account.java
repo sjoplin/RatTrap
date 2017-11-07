@@ -1,6 +1,4 @@
-package echsupport.rattrap.Model;
-
-import java.lang.Math;
+package echsupport.rattrap.model;
 
 import echsupport.rattrap.RegistrationStatus;
 
@@ -8,6 +6,10 @@ import echsupport.rattrap.RegistrationStatus;
  * Created by sjoplin on 9/24/17.
  */
 
+
+/**
+ * this class has been deprecated and replaced by firebase, need to remove from system
+ */
 public class Account {
     //name of the account holder
     private String name;

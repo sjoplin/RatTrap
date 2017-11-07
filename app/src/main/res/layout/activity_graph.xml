@@ -12,12 +12,13 @@
         android:id="@+id/graph" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/yearGraphSpin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:layout_marginTop="25px"
+        android:id="@+id/monthGraphSpin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -25,7 +26,33 @@
         android:id="@+id/changeDateGraph"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK" />
+        android:layout_marginTop="25px"
+        android:text="Change Date" />
+
+    <TextView
+        android:layout_marginTop="100px"
+        android:id="@+id/Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="If graph isnt loaded, press refresh"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_marginTop="25px"
+        android:id="@+id/refreshButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Refresh" />
+
+    <Button
+        android:id="@+id/profReturn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25px"
+        android:text="Home" />
 
 
 </LinearLayout>

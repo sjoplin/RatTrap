@@ -9,12 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.time.Month;
 
-import echsupport.rattrap.Model.Model;
-import echsupport.rattrap.Model.RatDataManager;
+import echsupport.rattrap.model.Model;
+import echsupport.rattrap.model.RatDataManager;
 
 /**
  * Created by caitlin on 10/30/17.
@@ -48,18 +48,18 @@ public class Pop extends Activity {
             years.add(Integer.toString(i));
         }
 
-        yearSpinner = (Spinner) findViewById(R.id.spinner_year);
+        yearSpinner = findViewById(R.id.spinner_year);
         ArrayAdapter<String> adapter_year = new ArrayAdapter(this, android.R.layout.simple_spinner_item, years);
         adapter_year.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(adapter_year);
 
-        monthSpinner = (Spinner) findViewById(R.id.spinner_month);
+        monthSpinner = findViewById(R.id.spinner_month);
         ArrayAdapter<String> adapter_month = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Month.values());
         adapter_month.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(adapter_month);
 
         filterManager = Model.getRatDataManager();
-        loadDataButton = (Button) findViewById(R.id.filter_data);
+        loadDataButton = findViewById(R.id.filter_data);
         loadDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
