@@ -3,7 +3,6 @@ package echsupport.rattrap.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -104,7 +103,7 @@ public class GraphActivity extends AppCompatActivity {
                 String year = yearSpinner.getSelectedItem().toString();
                 Month month = (Month) monthSpinner.getSelectedItem();
                 ratDataManager.getDataByDate(year, month);
-                AndroidUtils.animateView(progressOverlay, View.VISIBLE, 0.8f, 9);
+                AndroidUtils.animateView(progressOverlay, View.VISIBLE, 0.8f, 999);
                 Intent intent = new Intent(getApplicationContext(), GraphActivity.class);
                 startActivity(intent);
 
@@ -136,10 +135,7 @@ public class GraphActivity extends AppCompatActivity {
         int[] reportsPerDay = new int[maxLength];
 
         for (RatData data : ratDataManager.getRatData()) {
-            if (data.getCreatedDate().getDay() > 20) {
-                Log.d("Bug", "This should appear");
-            }
-            reportsPerDay[data.getCreatedDate().getDay()] = reportsPerDay[data.getCreatedDate().getDay()] + 1;
+            reportsPerDay[data.getCreatedDate().getDate()] = reportsPerDay[data.getCreatedDate().getDate()] + 1;
         }
         return reportsPerDay;
     }

@@ -1,6 +1,7 @@
-package echsupport.rattrap;
+package echsupport.rattrap.controller;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -16,8 +17,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import echsupport.rattrap.R;
 import echsupport.rattrap.model.Model;
 import echsupport.rattrap.model.RatData;
 import echsupport.rattrap.model.RatDataManager;
@@ -45,7 +47,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         dateButton.setOnClickListener(new View.OnClickListener() { //temporary on click listener takes you back to data viewer
             @Override
             public void onClick(View v) {
-                createDateDialogue().show();
+                Intent intent = new Intent(getApplicationContext(), Pop.class);
+                startActivity(intent);
 
             }
         });
@@ -76,7 +79,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(41, -74)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
-        ArrayList<RatData> data = ratDataManager.getRatData();
+        List<RatData> data = ratDataManager.getRatData();
         for (int i = 0; i < 100; i++) {
             try{
                 RatData report = data.get(i);
@@ -93,7 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
-
+    //deprecated needs to be removed
     private DatePickerDialog createDateDialogue() {
         DatePickerDialog dpd = new DatePickerDialog(this, null, selectedYear, selectedMonth, 1);
         return dpd;
