@@ -49,4 +49,8 @@ public class Model {
     public static void setContext(Context context) {
         mContext = context;
     }
+
+    public static DownLoadFilesTask getNewDownLoadTast() {
+        return new DownLoadFilesTask();
+    }
 }

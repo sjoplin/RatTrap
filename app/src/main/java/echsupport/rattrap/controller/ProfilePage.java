@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import echsupport.rattrap.MapsActivity;
 import echsupport.rattrap.R;
 import echsupport.rattrap.model.Model;
 
@@ -43,7 +42,7 @@ public class ProfilePage extends AppCompatActivity {
         viewerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RatDataViewer.class);
                 startActivity(intent);
             }
         });
@@ -88,6 +87,8 @@ public class ProfilePage extends AppCompatActivity {
 
 
         temp = "";
+
+        //gets the current reference
         FirebaseAuth authM = FirebaseAuth.getInstance();
         FirebaseUser user = authM.getCurrentUser();
         String userName = user.getEmail().replace('.','-');
@@ -95,7 +96,8 @@ public class ProfilePage extends AppCompatActivity {
         DatabaseReference userAccount = database.getReference().child("user").child(userName);
         DatabaseReference name = userAccount.child("name");
         DatabaseReference admin = userAccount.child("admin");
-        //temp = accMan.getCurAcc().getRegStat().toString();
+
+        //attempts to get the users and admins
         name.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

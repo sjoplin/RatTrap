@@ -41,7 +41,11 @@ dependencies {
     compile('com.google.android.gms:play-services-maps:10.0.1') {
         force = true;
     }
+    compile 'com.google.firebase:firebase-messaging:9.0.0'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.powermock:powermock:1.6.5'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
     compile files('libs/GraphView-4.0.1.jar')
 }
 

@@ -10,7 +10,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sjoplin on 10/15/17.
@@ -18,10 +19,10 @@ import java.util.Collections;
 
 public class RatDataManager {
     private static final RatDataManager ourInstance = new RatDataManager();
-    private ArrayList<RatData> ratDataArrayList = new ArrayList<>();
+    private List<RatData> ratDataArrayList = new ArrayList<>();
     public static boolean loading = false;
 
-    private static int numRats;
+    //backup if RatData pull fails
     private static String[][] data = new String[10000][9];
 
     public static RatDataManager getInstance() {
@@ -31,78 +32,46 @@ public class RatDataManager {
 
     /**
      * This pulls the data once so that other screens dont have to
+     * for some reason pull by date doesnt work so it has to be this
      */
     private RatDataManager() {
-        int i = 0;
         try {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reportSorted").child("2017").child("9");
             loading = true;
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    int i = 0;
+
                     for (DataSnapshot item : dataSnapshot.getChildren()) {
                         ratDataArrayList.add(item.getValue(RatData.class));
-                        i++;
+
                     }
-                    numRats = i;
                     loading = false;
-                    Log.d("Bug", "Im done loading");
+                    Log.d("BugRDM", "Im done loading");
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
-        } catch (Exception e) {
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("report2");
-            //Pulls all data we want from database
-            mDatabase.addValueEventListener(new ValueEventListener() {
-
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    int i = 0;
-                    //Log.d("Bug", "KeyBeGot");
-
-                    for (DataSnapshot item : dataSnapshot.getChildren()) {
-//                    makes sure we dont go over array size. Dont really need more than 9000
-                        if (i < 100) {
-                            data[i][0] = item.getKey(); //unique key
-//                      Log.d("Bug", "" + data[0][0]);
-                            int j = 1;
-                            //because its stored as 8 strings rather than an
-                            for (DataSnapshot values : item.getChildren()) {
-                                if (j < 9) {
-                                    String temp = "";
-                                    if (values.getValue() instanceof String) {
-                                        temp = (String) values.getValue();
-                                    }
-                                    if (temp.length() < 2) {
-                                        temp = "Not Reported";
-                                    }
-                                    data[i][j] = temp; //(String) values.getValue();
-                                    j++;
-                                } else {
-                                    Log.d("Bug", "Heres bad Key: " + i + data[i][0]);
-                                }
-                            }
-//                        creates a rat object. If we switch to have objects in database, we will need
-//                        to change this
-                            ratDataArrayList.add(new RatData(data[i][0], data[i][4], data[i][5], data[i][8], data[i][1],
-                                    data[i][3], data[i][2], data[i][7], data[i][6]));
-                            Collections.sort(ratDataArrayList);
-                            i++;
-                        }
-                    }
-                    numRats = i;
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+        } catch (Throwable e) {
+            //Dummy data if previous fails
+            Date now = new Date();
+            while (now.getYear() < 2000) {
+                now.setYear(now.getYear() + 100);
+            }
+            ratDataArrayList.add(new RatData("Bronx", "New York", now.toString(), "1419 Wellington View", "63005",
+                    "41.709", "House","-70.198", "128319284"));
+            ratDataArrayList.add(new RatData("Bronx", "St. Louis", now.toString(), "1419 Wellington View", "63005",
+                    "41.709", "House","-70.198", "128319284"));
+            ratDataArrayList.add(new RatData("Bronx", "New York", now.toString(), "1419 Wellington View", "63005",
+                    "41.709", "House","-70.198", "128319284"));
+            ratDataArrayList.add(new RatData("Bronx", "New York", now.toString(), "1419 Wellington View", "63005",
+                    "41.709", "House","-70.198", "128319284"));
+            ratDataArrayList.add(new RatData("Bronx", "New York", now.toString(), "1419 Wellington View", "63005",
+                    "41.709", "House","-70.198", "128319284"));
+            ratDataArrayList.add(new RatData("Bronx", "New York", now.toString(), "1419 Wellington View", "63005",
+                    "41.709", "House","-70.198", "128319284"));
         }
     }
 
@@ -110,8 +79,16 @@ public class RatDataManager {
      * this returns the array of all data pulled
      * @return all rat data
      */
-    public ArrayList<RatData> getRatData() {
+    public List<RatData> getRatData() {
         return ratDataArrayList;
+    }
+
+    /**
+     * this set RatDataArrayList
+     * @param ratDataArrayList the new RatDataArrayList
+     */
+    public void setRatDataArrayList(List<RatData> ratDataArrayList) {
+        this.ratDataArrayList = ratDataArrayList;
     }
 
     /**
@@ -126,8 +103,9 @@ public class RatDataManager {
         DatabaseReference month = year.child("" + newRat.getCreatedDate().getMonth());
         DatabaseReference key = month.child("" + newRat.getUniqueKey());
         key.setValue(newRat);
+
+
         ratDataArrayList.add(0, newRat);
-        numRats++;
         Log.d("BugReport", "" + ratDataArrayList.get(0));
     }
 
@@ -139,14 +117,18 @@ public class RatDataManager {
      *
      * @return whether or not the data is loaded
      */
-    public void getDataByDate(String year, Month m) {
+    public boolean getDataByDate(String year, Month m) {
 
         String month = "" + (m.getValue() - 1);
-        new DownLoadFilesTask(Model.getContext()).execute(year, month, "graph");
+        try {
+            new DownLoadFilesTask(Model.getContext()).execute(year, month);
+            return true;
+        } catch (Exception e) {
+            Log.d("Bug", "I failed to execute loading data: " + e.getMessage());
+            return false;
+        }
 
     }
 
-    public void setRatDataArrayList(ArrayList<RatData> ratDataArrayList) {
-        this.ratDataArrayList = ratDataArrayList;
-    }
+
 }
