@@ -25,7 +25,7 @@ public class RatDataManager {
     //backup if RatData pull fails
     private static String[][] data = new String[10000][9];
 
-    static RatDataManager getInstance() {
+    public static RatDataManager getInstance() {
         return ourInstance;
     }
 
