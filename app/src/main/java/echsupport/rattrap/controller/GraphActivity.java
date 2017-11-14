@@ -40,6 +40,12 @@ public class GraphActivity extends AppCompatActivity {
     private Button ret;
 
 
+    public GraphActivity() {
+        //for testing purposes
+        model = Model.getInstance();
+        ratDataManager = Model.getRatDataManager();
+    }
+
     /**
      *
      * @param savedInstanceState
@@ -131,7 +137,7 @@ public class GraphActivity extends AppCompatActivity {
      * @param maxLength how many days are in a month - 1
      * @return rat reports per day
      */
-    private int[] countReportsPerDay(int maxLength) {
+    public int[] countReportsPerDay(int maxLength) {
         int[] reportsPerDay = new int[maxLength];
 
         for (RatData data : ratDataManager.getRatData()) {
