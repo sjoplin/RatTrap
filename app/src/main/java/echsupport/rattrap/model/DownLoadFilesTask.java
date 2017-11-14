@@ -12,12 +12,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sjoplin on 11/1/17.
  */
 
-class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
+class DownLoadFilesTask extends AsyncTask<String, Integer, List<RatData>> {
 
     Context mContext;
     ProgressDialog mDialog;
@@ -28,6 +29,7 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
     }
 
     DownLoadFilesTask() {
+        mContext = null;
     }
 
     @Override
@@ -47,8 +49,8 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
      * @return
      */
     @Override
-    protected ArrayList<RatData> doInBackground(String... params) {
-//        Model.getCurScreen().showLoad();
+    protected List<RatData> doInBackground(String... params) {
+
 //        mDialog.show();
         String year = params[0];
         String month = params[1];
@@ -74,6 +76,7 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
             });
         } catch (Exception e) {
             Log.d("Bug", "could not load data for " + year + " " + month);
+            throw new RuntimeException("Failed to pull data for " + year + " " + month);
         }
         return ratDataArrayList;
 
@@ -87,7 +90,7 @@ class DownLoadFilesTask extends AsyncTask<String, Integer, ArrayList<RatData>> {
 
 
     @Override
-    protected void onPostExecute(ArrayList<RatData> result) {
+    protected void onPostExecute(List<RatData> result) {
         Model.getRatDataManager().setRatDataArrayList(result);
         super.onPostExecute(result);
 //        mDialog.dismiss();

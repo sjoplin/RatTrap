@@ -34,7 +34,6 @@ public class Model {
         return ratDataManager;
     }
 
-<<<<<<< Updated upstream:app/src/main/java/echsupport/rattrap/model/Model.java
     public static void setCurScreen(AppCompatActivity curScreenTemp) {
         curScreen = curScreenTemp;
     }
@@ -50,13 +49,8 @@ public class Model {
     public static void setContext(Context context) {
         mContext = context;
     }
-=======
-//    public static void setCurScreen(LoadingActivity curScreenTemp) {
-//        curScreen = curScreenTemp;
-//    }
-//
-//    public static LoadingActivity getCurScreen() {
-//        return curScreen;
-//    }
->>>>>>> Stashed changes:app/src/main/java/echsupport/rattrap/Model/Model.java
+
+    public static DownLoadFilesTask getNewDownLoadTast() {
+        return new DownLoadFilesTask();
+    }
 }

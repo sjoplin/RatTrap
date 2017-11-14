@@ -1,4 +1,4 @@
-package echsupport.rattrap;
+package echsupport.rattrap.controller;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import echsupport.rattrap.R;
 import echsupport.rattrap.model.Model;
 import echsupport.rattrap.model.RatDataManager;
 

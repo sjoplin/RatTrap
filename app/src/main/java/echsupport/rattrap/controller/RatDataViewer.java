@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import echsupport.rattrap.R;
 import echsupport.rattrap.model.Model;
@@ -54,6 +54,7 @@ public class RatDataViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rat_data_viewer);
+
         data = new String[10000][9];
         dataList = (ListView) findViewById(R.id.ratDataView);
         ratDataManager = Model.getRatDataManager();
@@ -76,7 +77,7 @@ public class RatDataViewer extends AppCompatActivity {
                 display(i);
             }
         });
-        display(5);
+        display(0);
 
 
     }
@@ -90,7 +91,7 @@ public class RatDataViewer extends AppCompatActivity {
      */
     private void display(int location) {
         Log.d("Bug", "Displaying");
-        ArrayList<RatData> ratData = ratDataManager.getRatData();
+        List<RatData> ratData = ratDataManager.getRatData();
         RatData interestingData = ratData.get(location);
         Log.d("Bug", "Gotten Data" + interestingData);
         if (interestingData != null) {

@@ -53,11 +53,11 @@
             android:value="AIzaSyDdp8ch9R08X6-4RRPGMCJnxOSHmmjLJx8" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".controller.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
         
         <activity
-            android:name=".Pop"
+            android:name=".controller.Pop"
             android:label="PopUpActivity"></activity>
 
 
