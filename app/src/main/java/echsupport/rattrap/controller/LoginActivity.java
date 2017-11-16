@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -301,6 +302,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * It will then automatically login in the user with their current credentials
      */
     private void regNewUser() {
+        isPasswordValid("dont", "care");
         String name = mRegNameView.getText().toString();
         String email = mRegEmailView.getText().toString();
         String password = mRegPassView.getText().toString();
@@ -372,13 +374,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return (accMan.getAccount(email) != null);
     }
 
-    private boolean isPasswordValid(String password, String email) {
+    public boolean isPasswordValid(String password, String email) {
         int hashCheck = 0;
         for (int i = 0; i < password.length(); i++) {
             char c = password.charAt(i);
-            hashCheck += Math.pow((int) c, i + 1);
+            hashCheck += c + i;
         }
-        return (accMan.getAccount(email)).getPassword() == hashCheck;
+
+        return ((accMan.getAccount(email)).getPassword() == hashCheck);
+
     }
 
     /**

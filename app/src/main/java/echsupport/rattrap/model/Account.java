@@ -49,9 +49,10 @@ public class Account {
         this.name = name;
         this.email = email;
         this.password = password;
+        passHash = 0;
         for (int i = 0; i < password.length(); i++) {
             char c = password.charAt(i);
-            passHash += Math.pow((int) c, i + 1);
+            passHash += c + i;
         }
         this.regStat = regStat;
     }
@@ -102,16 +103,17 @@ public class Account {
 
     /**
      * sets the password and passhash
-     * @param password the new password
+    // * @param password the new password
      */
-    public void setPassword(String password) {
-        this.password = password;
-        passHash = 0;
-        for (int i = 0; i < password.length(); i++) {
-            char c = password.charAt(i);
-            passHash += Math.pow((int) c, i + 1);
-        }
-    }
+//    public void setPassword(String password) {
+//        this.password = password;
+//        int hashCheck = 0;
+//        for (int i = 0; i < password.length(); i++) {
+//            char c = password.charAt(i);
+//            hashCheck += c + i;
+//        }
+//        passHash = hashCheck;
+//    }
 
     public RegistrationStatus getRegStat() {
         return regStat;

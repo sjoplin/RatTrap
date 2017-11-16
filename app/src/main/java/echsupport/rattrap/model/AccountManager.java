@@ -15,7 +15,7 @@ import echsupport.rattrap.RegistrationStatus;
 public class AccountManager {
     //hashmap for backing and Accountmanager instance is to make sure theres only one ever.
     private static HashMap<String, Account> accountHashMap;
-    private static AccountManager instance = null;
+    private static AccountManager instance = new AccountManager();
     private Account curAcc = null;
 
     /**
