@@ -103,7 +103,7 @@ public class RatData implements Comparable<RatData> {
      * @param date the string that wants to be a localDateTime
      * @return the new LocalDateTime
      */
-    private Date dateToLocal(String date) {
+    private static Date dateToLocal(String date) {
         String year = date.substring(6, 10);
         int yearInt = Integer.parseInt(year);
         String month = date.substring(3, 5);
@@ -117,6 +117,10 @@ public class RatData implements Comparable<RatData> {
         String seconds = date.substring(17, 19);
         int secondsInt = Integer.parseInt(seconds);
         return new Date(yearInt, monthInt, dayInt, hourInt, minuteInt, secondsInt);
+    }
+
+    public static Date dateToLocalTest(String date) {
+        return dateToLocal(date);
     }
 
 
